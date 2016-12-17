@@ -12,7 +12,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/occupied")
 public class RoomRestController {
 
     private final RoomRepository roomRepository;
@@ -22,7 +22,7 @@ public class RoomRestController {
         this.roomRepository = roomRepository;
     }
 
-    @RequestMapping(value = "/occupied", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<?> getAllRoomsAvailibility() {
         List<Room> allRooms = roomRepository.findAll();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
@@ -35,7 +35,7 @@ public class RoomRestController {
         return ResponseEntity.ok(allRoomsJson);
     }
 
-    @RequestMapping(value = "/occupied/{roomId}", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/{roomId}", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<?> getSpecificRoomAvailibility(@PathVariable Long roomId) {
         System.out.println(roomId);
         Room room = roomRepository.getOne(roomId);
@@ -53,7 +53,7 @@ public class RoomRestController {
         return ResponseEntity.ok(responseJson);
     }
 
-    @RequestMapping(value = "/{roomId}/occupied", method = RequestMethod.POST, consumes = {"text/plain"})
+    @RequestMapping(value = "/{roomId}", method = RequestMethod.POST, consumes = {"text/plain"})
     ResponseEntity<?> updateRoomAvailability(@PathVariable Long roomId, @RequestBody String occupied) {
         System.out.println(roomId);
         System.out.println(occupied);
@@ -62,7 +62,6 @@ public class RoomRestController {
         if (room == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        // validate occupied param
         boolean occupiedStatus = Boolean.valueOf(occupied);
         System.out.println(occupiedStatus);
 
