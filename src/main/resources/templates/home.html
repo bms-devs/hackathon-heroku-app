@@ -45,7 +45,10 @@
                 <tbody>
                     <tr th:each="room : ${rooms}">
                         <td th:text="${room.id}"></td>
-                        <td th:text="${room.status}"></td>
+                        <td th:switch="${room.status.toString()}">
+                            <p th:case="AVAILABLE"> <img src="/circle_green.png"/></p>
+                            <p th:case="BUSY"> <img src="/circle_red.png"/></p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
