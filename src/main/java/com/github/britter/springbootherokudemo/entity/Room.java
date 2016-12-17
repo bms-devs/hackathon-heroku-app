@@ -1,12 +1,9 @@
 package com.github.britter.springbootherokudemo.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.*;
 
@@ -18,7 +15,11 @@ public class Room {
     @Id
     private long id;
 
-    private RoomStatus status;
+    private String name;
+
+    private String token;
+
+    private Boolean occupied;
 
     private Date lastUpdateDate;
 
