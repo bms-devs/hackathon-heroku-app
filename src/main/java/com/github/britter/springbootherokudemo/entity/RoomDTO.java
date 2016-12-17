@@ -19,11 +19,4 @@ public class RoomDTO {
 
     @Expose
     private Date lastUpdateDate;
-
-    public RoomDTO(Room room){
-        this.id = room.getId();
-        this.name = room.getName();
-        this.occupied = room.getOccupied();
-        this.lastUpdateDate = room.getLastUpdateDate();
-    }
 }

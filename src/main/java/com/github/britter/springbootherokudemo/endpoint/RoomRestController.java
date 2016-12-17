@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/occupied")
 public class RoomRestController {
 
-    final static int TIMEOUT = 70;
-
     private final RoomRepository roomRepository;
+    private final RoomToRoomDTOMapper mapper;
     private final Gson gson;
 
     @Autowired
     public RoomRestController(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
+        this.mapper = new RoomToRoomDTOMapper();
 
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -34,12 +34,8 @@ public class RoomRestController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<?> getAllRoomsAvailibility() {
         List<RoomDTO> allRooms = roomRepository.findAll()
-                .stream().map(r -> new RoomDTO(r))
+                .stream().map(r -> mapper.map(r))
                 .collect(Collectors.toList());
-
-        for (RoomDTO room : allRooms) {
-            changeStatusIfTimeout(room);
-        }
 
         Type type = new TypeToken<List<RoomDTO>>() {}.getType();
         String responseJson = gson.toJson(allRooms, type);
@@ -54,8 +50,7 @@ public class RoomRestController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        RoomDTO roomDTO = new RoomDTO(room);
-        changeStatusIfTimeout(roomDTO);
+        RoomDTO roomDTO = mapper.map(room);
         String responseJson = gson.toJson(roomDTO);
 
         return ResponseEntity.ok(responseJson);
@@ -77,12 +72,4 @@ public class RoomRestController {
 
         return ResponseEntity.ok(null);
     }
-
-    private void changeStatusIfTimeout(RoomDTO room) {
-        Date now = new Date();
-        if (room.getLastUpdateDate() != null && now.getTime() - room.getLastUpdateDate().getTime() > 1000*TIMEOUT) {
-            room.setOccupied(null);
-        }
-    }
-
 }
