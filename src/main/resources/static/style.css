@@ -1,3 +1,16 @@
 .big-font {
-    font-size: 30px;
+    font-size: 2em;
+}
+
+.very-big-font {
+    font-size: 3em;
+}
+
+.media-left {
+    padding-right: 15px;
+}
+
+.center-horizontally {
+    display: block;
+    margin: 0 auto 1em auto;
 }
