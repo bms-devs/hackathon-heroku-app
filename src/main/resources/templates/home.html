@@ -49,6 +49,7 @@
                         <td th:switch="${room.occupied}">
                             <p th:case="false"> <img src="/circle_green.png"/></p>
                             <p th:case="true"> <img src="/circle_red.png"/></p>
+                            <p th:case="null"> <img src="/unknown.png"/></p>
                         </td>
                     </tr>
                 </tbody>
