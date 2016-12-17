@@ -1,6 +1,6 @@
 package com.github.britter.springbootherokudemo.entity;
 
-import com.google.gson.annotations.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.*;
@@ -8,15 +8,13 @@ import java.util.*;
 @Getter
 @Setter
 public class RoomDTO {
-    @Expose
+
     private long id;
 
-    @Expose
     private String name;
 
-    @Expose
     private Boolean occupied;
 
-    @Expose
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date lastUpdateDate;
 }
