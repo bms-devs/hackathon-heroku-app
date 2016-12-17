@@ -37,9 +37,8 @@ public class RoomRestController {
                 .stream().map(r -> new RoomDTO(r))
                 .collect(Collectors.toList());
 
-        Date now = new Date();
         for (RoomDTO room : allRooms) {
-            changeStatusIfTimeout(now, room);
+            changeStatusIfTimeout(room);
         }
 
         Type type = new TypeToken<List<RoomDTO>>() {}.getType();
@@ -55,12 +54,9 @@ public class RoomRestController {
             return ResponseEntity.badRequest().body(null);
         }
 
-
         RoomDTO roomDTO = new RoomDTO(room);
+        changeStatusIfTimeout(roomDTO);
         String responseJson = gson.toJson(roomDTO);
-
-        Date now = new Date();
-        changeStatusIfTimeout(now, roomDTO);
 
         return ResponseEntity.ok(responseJson);
     }
@@ -82,9 +78,9 @@ public class RoomRestController {
         return ResponseEntity.ok(null);
     }
 
-    private void changeStatusIfTimeout(Date now, RoomDTO room) {
-
-        if (room.getLastUpdateDate() != null && now.getTime() - room.getLastUpdateDate().getTime() > TIMEOUT) {
+    private void changeStatusIfTimeout(RoomDTO room) {
+        Date now = new Date();
+        if (room.getLastUpdateDate() != null && now.getTime() - room.getLastUpdateDate().getTime() > 1000*TIMEOUT) {
             room.setOccupied(null);
         }
     }
