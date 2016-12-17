@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.britter.springbootherokudemo;
+package com.github.britter.springbootherokudemo.endpoint;
 
 import javax.validation.Valid;
 import java.util.List;
 
 import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,10 +32,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HomeController {
 
-    private RecordRepository repository;
+    private RoomRepository repository;
 
     @Autowired
-    public HomeController(RecordRepository repository) {
+    public HomeController(RoomRepository repository) {
         this.repository = repository;
     }
 
