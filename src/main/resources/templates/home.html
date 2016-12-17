@@ -46,10 +46,8 @@
                 <tbody>
                     <tr th:each="room : ${rooms}">
                         <td class="big-font" th:text="${room.name}"></td>
-                        <td th:switch="${room.occupied}">
-                            <p th:case="false"> <img src="/circle_green.png"/></p>
-                            <p th:case="true"> <img src="/circle_red.png"/></p>
-                            <p th:case="null"> <img src="/unknown.png"/></p>
+                        <td th:id="${room.id}" >
+                            <p><img src=""/></p>
                         </td>
                     </tr>
                 </tbody>
@@ -59,6 +57,34 @@
 </div>
 
 <!-- Latest compiled and minified JavaScript -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    var updateStatuses = function () {
+        $.ajax({
+            url: "/occupied",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("1:123456"));
+            },
+            success: function (result) {
+                result.forEach(function (res) {
+                    if (res.occupied === true)
+                        $("#" + res.id + " img").attr("src", "/circle_red.png");
+                    else if (res.occupied === false)
+                        $("#" + res.id + " img").attr("src", "/circle_green.png");
+                    else
+                        $("#" + res.id + " img").attr("src", "/unknown.png");
+                })
+            }
+        });
+    };
+    
+    $(document).ready(function() {
+        updateStatuses();
+        setInterval(function() {
+            updateStatuses()
+        }, 2000);
+    });
+</script>
 </body>
 </html>
