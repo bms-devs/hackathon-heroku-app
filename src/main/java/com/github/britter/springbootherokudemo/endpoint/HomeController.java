@@ -16,6 +16,7 @@
 package com.github.britter.springbootherokudemo.endpoint;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 import com.github.britter.springbootherokudemo.entity.*;
@@ -36,14 +37,26 @@ public class HomeController {
 
     @Autowired
     public HomeController(RoomRepository repository) {
+//        Room room1 = new Room();
+//        room1.setId(1);
+//        room1.setLastUpdateDate(new Date());
+//        room1.setStatus(RoomStatus.AVAILABLE);
+//        repository.save(room1);
+//
+//        Room room2 = new Room();
+//        room2.setId(2);
+//        room2.setLastUpdateDate(new Date());
+//        room2.setStatus(RoomStatus.BUSY);
+//        repository.save(room2);
+
+
         this.repository = repository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap model) {
-        List<Room> records = repository.findAll();
-        model.addAttribute("records", records);
-        model.addAttribute("insertRecord", new Room());
+        List<Room> rooms = repository.findAll();
+        model.addAttribute("rooms", rooms);
         return "home";
     }
 
