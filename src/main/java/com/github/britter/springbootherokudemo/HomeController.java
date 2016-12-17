@@ -18,6 +18,7 @@ package com.github.britter.springbootherokudemo;
 import javax.validation.Valid;
 import java.util.List;
 
+import com.github.britter.springbootherokudemo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,16 +40,17 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap model) {
-        List<Record> records = repository.findAll();
+        List<Room> records = repository.findAll();
         model.addAttribute("records", records);
-        model.addAttribute("insertRecord", new Record());
+        model.addAttribute("insertRecord", new Room());
         return "home";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String insertData(ModelMap model, 
-                             @ModelAttribute("insertRecord") @Valid Record record,
+                             @ModelAttribute("insertRecord") @Valid Room record,
                              BindingResult result) {
+
         if (!result.hasErrors()) {
             repository.save(record);
         }
