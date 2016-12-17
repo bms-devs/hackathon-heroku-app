@@ -44,10 +44,12 @@
                 </thead>
                 <tbody>
                     <tr th:each="room : ${rooms}">
-                        <td th:text="${room.id}"></td>
-                        <td th:switch="${room.status.toString()}">
-                            <p th:case="AVAILABLE"> <img src="/circle_green.png"/></p>
-                            <p th:case="BUSY"> <img src="/circle_red.png"/></p>
+                        <td th:text="${room.name}"></td>
+                        <!--<td th:text="${room.occupied}"></td>-->
+                        <td th:switch="${room.occupied}">
+                            <p th:case="false"> <img src="/circle_green.png"/></p>
+                            <p th:case="true"> <img src="/circle_red.png"/></p>
+                            <p th:case="null"> <img src="/unknown.png"/></p>
                         </td>
                     </tr>
                 </tbody>
