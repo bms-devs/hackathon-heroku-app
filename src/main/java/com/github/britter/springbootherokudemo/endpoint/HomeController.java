@@ -37,19 +37,6 @@ public class HomeController {
 
     @Autowired
     public HomeController(RoomRepository repository) {
-        /*Room room1 = new Room();
-        room1.setId(1);
-        room1.setLastUpdateDate(new Date());
-        room1.setStatus(RoomStatus.AVAILABLE);
-        repository.save(room1);
-
-        Room room2 = new Room();
-        room2.setId(2);
-        room2.setLastUpdateDate(new Date());
-        room2.setStatus(RoomStatus.BUSY);
-        repository.save(room2);
-
-*/
         this.repository = repository;
     }
 
