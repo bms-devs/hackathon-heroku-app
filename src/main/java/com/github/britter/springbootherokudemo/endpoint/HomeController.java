@@ -47,14 +47,4 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String insertData(ModelMap model, 
-                             @ModelAttribute("insertRecord") @Valid Room record,
-                             BindingResult result) {
-
-        if (!result.hasErrors()) {
-            repository.save(record);
-        }
-        return home(model);
-    }
 }
