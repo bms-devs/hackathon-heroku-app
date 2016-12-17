@@ -16,20 +16,21 @@
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Boot Heroku Example</title>
+    <title>WC MONITOR</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+
+    <link rel="stylesheet" href="/style.css" />
+
 </head>
 <body>
 <div class="container">
     <div class="page-header">
         <h1>WC MONITOR</h1>
-        <!--<p class="lead">Demo application for showing how to run a <a href="http://projects.spring.io/spring-boot/">Spring Boot</a> application on <a href="https://heroku.com">Heroku</a>.</p>-->
-        <!--<p>The code is open source at <a href="https://github.com/britter/spring-boot-heroku-demo">GitHub</a>. You're currently looking at version <span th:text="#{project.version}">0.0.1</span> build from revision <a href="https://github.com" th:href="#{git.commit.link}" th:text="${#strings.substring('__#{git.commit.hash}__', 0, 7)}">1bb7244</a>. For more information have a look at the <a href="https://blog.codecentric.de/en/2015/10/deploying-spring-boot-applications-to-heroku">accompanying blog post</a>.</p>-->
     </div>
     
     <img src="/home_page_img.jpg"/>
@@ -39,13 +40,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Pokoje:</th>
+                        <th class="big-font">Pokoje:</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="room : ${rooms}">
-                        <td th:text="${room.name}"></td>
-                        <!--<td th:text="${room.occupied}"></td>-->
+                        <td class="big-font" th:text="${room.name}"></td>
                         <td th:switch="${room.occupied}">
                             <p th:case="false"> <img src="/circle_green.png"/></p>
                             <p th:case="true"> <img src="/circle_red.png"/></p>
