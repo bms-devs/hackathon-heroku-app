@@ -27,6 +27,7 @@ public class RoomRestController {
         List<Room> allRooms = roomRepository.findAll();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .serializeNulls()
                 .create();
         Type type = new TypeToken<List<Room>>() {}.getType();
         String allRoomsJson = gson.toJson(allRooms, type);
@@ -49,7 +50,7 @@ public class RoomRestController {
 
         room.setOccupied(occupiedStatus);
         room.setLastUpdateDate(new Date());
-
+        roomRepository.save(room);
         return ResponseEntity.ok(null);
     }
 
