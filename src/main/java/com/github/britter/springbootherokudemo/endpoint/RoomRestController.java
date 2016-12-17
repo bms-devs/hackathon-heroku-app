@@ -10,64 +10,63 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/occupied")
 public class RoomRestController {
 
     private final RoomRepository roomRepository;
+    private final Gson gson;
 
     @Autowired
     public RoomRestController(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .serializeNulls()
+                .create();
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<?> getAllRoomsAvailibility() {
-        List<Room> allRooms = roomRepository.findAll();
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                .serializeNulls()
-                .create();
-        Type type = new TypeToken<List<Room>>() {}.getType();
-        String allRoomsJson = gson.toJson(allRooms, type);
-        System.out.println(allRoomsJson);
-        return ResponseEntity.ok(allRoomsJson);
+        List<RoomDTO> allRooms = roomRepository.findAll()
+                .stream().map(r -> new RoomDTO(r))
+                .collect(Collectors.toList());
+
+        Type type = new TypeToken<List<RoomDTO>>() {}.getType();
+        String responseJson = gson.toJson(allRooms, type);
+
+        return ResponseEntity.ok(responseJson);
     }
 
     @RequestMapping(value = "/{roomId}", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<?> getSpecificRoomAvailibility(@PathVariable Long roomId) {
-        System.out.println(roomId);
         Room room = roomRepository.getOne(roomId);
         if (room == null) {
             return ResponseEntity.badRequest().body(null);
         }
-        System.out.println(room.getId());
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                .serializeNulls()
-                .create();
+
         RoomDTO roomDTO = new RoomDTO(room);
         String responseJson = gson.toJson(roomDTO);
 
         return ResponseEntity.ok(responseJson);
     }
 
-    @RequestMapping(value = "/{roomId}", method = RequestMethod.POST, consumes = {"text/plain"})
+    @RequestMapping(value = "/{roomId}", method = { RequestMethod.POST, RequestMethod.PUT }, consumes = {"text/plain"})
     ResponseEntity<?> updateRoomAvailability(@PathVariable Long roomId, @RequestBody String occupied) {
-        System.out.println(roomId);
-        System.out.println(occupied);
-
         Room room = roomRepository.getOne(roomId);
         if (room == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        boolean occupiedStatus = Boolean.valueOf(occupied);
-        System.out.println(occupiedStatus);
+        if (!occupied.equals("true") && !occupied.equals("false")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-        room.setOccupied(occupiedStatus);
+        room.setOccupied(Boolean.valueOf(occupied));
         room.setLastUpdateDate(new Date());
         roomRepository.save(room);
+
         return ResponseEntity.ok(null);
     }
 
