@@ -24,17 +24,14 @@ public class ApplicationInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("rooms.json").getFile());
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            Type type = new TypeToken<List<Room>>() {}.getType();
-            List<Room> rooms = new Gson().fromJson(bufferedReader, type);
-            for (Room room : rooms) {
-                roomRepository.save(room);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("rooms.json");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        Type type = new TypeToken<List<Room>>() {}.getType();
+        List<Room> rooms = new Gson().fromJson(inputStreamReader, type);
+        for (Room room : rooms) {
+            roomRepository.save(room);
         }
     }
 }
