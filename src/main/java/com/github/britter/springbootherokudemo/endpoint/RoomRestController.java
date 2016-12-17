@@ -35,6 +35,24 @@ public class RoomRestController {
         return ResponseEntity.ok(allRoomsJson);
     }
 
+    @RequestMapping(value = "/occupied/{roomId}", method = RequestMethod.GET, produces = {"application/json"})
+    ResponseEntity<?> getSpecificRoomAvailibility(@PathVariable Long roomId) {
+        System.out.println(roomId);
+        Room room = roomRepository.getOne(roomId);
+        if (room == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        System.out.println(room.getId());
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .serializeNulls()
+                .create();
+        RoomDTO roomDTO = new RoomDTO(room);
+        String responseJson = gson.toJson(roomDTO);
+
+        return ResponseEntity.ok(responseJson);
+    }
+
     @RequestMapping(value = "/{roomId}/occupied", method = RequestMethod.POST, consumes = {"text/plain"})
     ResponseEntity<?> updateRoomAvailability(@PathVariable Long roomId, @RequestBody String occupied) {
         System.out.println(roomId);
