@@ -25,7 +25,7 @@ public class RoomRestController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<List<RoomDTO>> getAllRoomsAvailibility() {
         List<RoomDTO> allRooms = roomRepository.findAll()
-                .stream().map(r -> mapper.map(r))
+                .stream().map(mapper::map)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(allRooms);

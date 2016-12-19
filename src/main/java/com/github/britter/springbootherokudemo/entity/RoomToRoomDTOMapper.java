@@ -11,10 +11,11 @@ public class RoomToRoomDTOMapper {
         dto.setId(room.getId());
         dto.setName(room.getName());
         dto.setOccupied(room.getOccupied());
-        dto.setLastUpdateDate(room.getLastUpdateDate());
+        final Date lastUpdateDate = room.getLastUpdateDate();
+        dto.setLastUpdateDate(lastUpdateDate);
 
         // change status to unknown on timeout
-        if (room.getLastUpdateDate() != null && new Date().getTime() - room.getLastUpdateDate().getTime() > TIMEOUT) {
+        if (lastUpdateDate == null || new Date().getTime() - lastUpdateDate.getTime() > TIMEOUT) {
             dto.setOccupied(null);
         }
 
