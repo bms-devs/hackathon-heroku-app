@@ -23,6 +23,8 @@ public class Room {
 
     private Date lastUpdateDate;
 
+    private Date lastOccupiedUpdateDate;
+
     public Room() {
     }
 }

@@ -46,7 +46,10 @@
                     <div class="media-left">
                         <img src=""/>
                     </div>
-                    <div class="media-body big-font" th:text="${room.name}"></div>
+                    <div class="media-body">
+                        <p class="big-font" th:text="${room.name}"/>
+                        <p><small th:text="#{occupied.lastUpdate}"/><small class="info" th:text="#{occupied.notAvalaible}"/></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,12 +68,23 @@
             },
             success: function (result) {
                 result.forEach(function (res) {
-                    if (res.occupied === true)
-                        $("#" + res.id + " img").attr("src", "/circle_red.png");
-                    else if (res.occupied === false)
-                        $("#" + res.id + " img").attr("src", "/circle_green.png");
-                    else
-                        $("#" + res.id + " img").attr("src", "/unknown.png");
+                    var imgSrc;
+
+                    if (res.occupied === true) {
+                        imgSrc = "/circle_red.png";
+                    } else if (res.occupied === false) {
+                        imgSrc = "/circle_green.png";
+                    } else {
+                        imgSrc = "/unknown.png";
+
+                    }
+
+                    var roomEl = $("#" + res.id);
+                    roomEl.find("img").attr("src", imgSrc);
+
+                    if (res.lastOccupiedUpdateDate != null) {
+                        roomEl.find("small.info").text(res.lastOccupiedUpdateDate);
+                    }
                 })
             }
         });
