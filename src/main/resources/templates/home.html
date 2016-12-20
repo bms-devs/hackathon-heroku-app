@@ -48,7 +48,7 @@
                     </div>
                     <div class="media-body">
                         <p class="big-font" th:text="${room.name}"/>
-                        <p><small th:text="#{occupied.lastUpdate}"/><small class="info" th:text="#{occupied.notAvalaible}"/></p>
+                        <p class="status"/>
                     </div>
                 </div>
             </div>
@@ -81,10 +81,7 @@
 
                     var roomEl = $("#" + res.id);
                     roomEl.find("img").attr("src", imgSrc);
-
-                    if (res.lastOccupiedUpdateDate != null) {
-                        roomEl.find("small.info").text(res.lastOccupiedUpdateDate);
-                    }
+                    roomEl.find(".status").text(res.status);
                 })
             }
         });

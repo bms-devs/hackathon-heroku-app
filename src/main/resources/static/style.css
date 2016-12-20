@@ -14,3 +14,7 @@
     display: block;
     margin: 0 auto 1em auto;
 }
+
+.status {
+    min-height: 20px;
+}

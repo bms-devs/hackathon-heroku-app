@@ -18,9 +18,9 @@ public class RoomRestController {
     private final RoomToRoomDTOMapper mapper;
 
     @Autowired
-    public RoomRestController(RoomRepository roomRepository) {
+    public RoomRestController(RoomRepository roomRepository, RoomToRoomDTOMapper mapper) {
         this.roomRepository = roomRepository;
-        this.mapper = new RoomToRoomDTOMapper();
+        this.mapper = mapper;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
