@@ -40,8 +40,8 @@ public class RoomToRoomDTOMapper {
     private Duration calculateLastOccupiedUpdateDuration(Date lastOccupiedUpdateDate) {
         long diff = new Date().getTime() - Optional.ofNullable(lastOccupiedUpdateDate).orElse(new Date()).getTime();
         long hours = TimeUnit.MILLISECONDS.toHours(diff);
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff) - (TimeUnit.MILLISECONDS.toHours(diff) * 60);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(diff) - (TimeUnit.MILLISECONDS.toMinutes(diff) * 60);
         return new Duration(hours, minutes, seconds);
     }
 }
