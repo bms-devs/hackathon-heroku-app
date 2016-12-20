@@ -17,4 +17,6 @@ public class RoomDTO {
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date lastUpdateDate;
+
+    private String status;
 }
