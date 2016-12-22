@@ -23,7 +23,7 @@ public class RoomToRoomDTOMapper {
         dto.setName(room.getName());
         dto.setOccupied(room.getOccupied());
         final Date lastUpdateDate = room.getLastUpdateDate();
-        dto.setLastUpdateDate(lastUpdateDate);
+        dto.setLastUpdateDate(lastUpdateDate == null ? null : lastUpdateDate.getTime());
 
         // change status to unknown on timeout
         if (DateTimeoutChecker.dateTimeout(lastUpdateDate)) {

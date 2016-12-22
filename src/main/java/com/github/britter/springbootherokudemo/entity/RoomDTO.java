@@ -15,8 +15,7 @@ public class RoomDTO {
 
     private Boolean occupied;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date lastUpdateDate;
+    private Long lastUpdateDate;
 
     private String status;
 }
