@@ -1,6 +1,6 @@
 package com.github.britter.springbootherokudemo.repository;
 
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
