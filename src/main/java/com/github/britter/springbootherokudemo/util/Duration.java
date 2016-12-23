@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo.model;
+package com.github.britter.springbootherokudemo.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

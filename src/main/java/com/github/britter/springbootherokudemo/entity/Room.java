@@ -3,6 +3,7 @@ package com.github.britter.springbootherokudemo.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.github.britter.springbootherokudemo.entity.enumeration.RoomStatus;
 import lombok.*;
 
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Room {
 
     @Id
@@ -19,12 +21,10 @@ public class Room {
 
     private String token;
 
-    private Boolean occupied;
+    private RoomStatus occupied;
 
     private Date lastUpdateDate;
 
     private Date lastOccupiedUpdateDate;
 
-    public Room() {
-    }
 }

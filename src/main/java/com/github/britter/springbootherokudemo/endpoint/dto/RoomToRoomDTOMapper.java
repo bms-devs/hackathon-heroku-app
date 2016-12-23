@@ -1,6 +1,7 @@
-package com.github.britter.springbootherokudemo.entity;
+package com.github.britter.springbootherokudemo.endpoint.dto;
 
-import com.github.britter.springbootherokudemo.model.Duration;
+import com.github.britter.springbootherokudemo.entity.Room;
+import com.github.britter.springbootherokudemo.util.Duration;
 import com.github.britter.springbootherokudemo.util.DateTimeoutChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -10,6 +11,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+
+import static com.github.britter.springbootherokudemo.util.BidirectionalRoomStatusAndBooleanConverter.castRoomStatusToBoolean;
 
 @Component
 public class RoomToRoomDTOMapper {
@@ -21,7 +24,7 @@ public class RoomToRoomDTOMapper {
         RoomDTO dto = new RoomDTO();
         dto.setId(room.getId());
         dto.setName(room.getName());
-        dto.setOccupied(room.getOccupied());
+        dto.setOccupied(castRoomStatusToBoolean(room.getOccupied()));
         final Date lastUpdateDate = room.getLastUpdateDate();
         dto.setLastUpdateDate(lastUpdateDate == null ? null : lastUpdateDate.getTime());
 

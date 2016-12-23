@@ -1,6 +1,9 @@
 package com.github.britter.springbootherokudemo.endpoint;
 
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.endpoint.dto.RoomDTO;
+import com.github.britter.springbootherokudemo.endpoint.dto.RoomToRoomDTOMapper;
+import com.github.britter.springbootherokudemo.entity.Room;
+import com.github.britter.springbootherokudemo.entity.enumeration.RoomStatus;
 import com.github.britter.springbootherokudemo.repository.*;
 import com.github.britter.springbootherokudemo.util.DateTimeoutChecker;
 import org.springframework.beans.factory.annotation.*;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.github.britter.springbootherokudemo.util.BidirectionalRoomStatusAndBooleanConverter.castBooleanToRoomStatus;
+import static com.github.britter.springbootherokudemo.util.BidirectionalRoomStatusAndBooleanConverter.castRoomStatusToBoolean;
 
 @RestController
 @RequestMapping("/occupied")
@@ -53,13 +59,14 @@ public class RoomRestController {
         }
 
         final Boolean currentOccupied = Boolean.valueOf(occupied);
-        final Boolean lastOccupied = room.getOccupied();
+        final Boolean lastOccupied = castRoomStatusToBoolean(room.getOccupied());
         final Date lastUpdateDate = room.getLastUpdateDate();
 
         if (!currentOccupied.equals(lastOccupied) || DateTimeoutChecker.dateTimeout(lastUpdateDate)) {
             room.setLastOccupiedUpdateDate(new Date());
         }
-        room.setOccupied(currentOccupied);
+
+        room.setOccupied(castBooleanToRoomStatus(currentOccupied));
         room.setLastUpdateDate(new Date());
 
         roomRepository.save(room);

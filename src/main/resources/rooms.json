@@ -2,7 +2,7 @@
     {
       "id":"1",
       "name": "Łazienka parter",
-      "occupied":null,
+      "occupied":"UNKNOWN",
       "lastUpdateDate":null,
       "lastOccupiedUpdateDate":null,
       "token":"123"
@@ -10,7 +10,7 @@
     {
       "id":"2",
       "name": "Łazienka 1 piętro",
-      "occupied":null,
+      "occupied":"UNKNOWN",
       "lastUpdateDate":null,
       "lastOccupiedUpdateDate":null,
       "token":"123"
