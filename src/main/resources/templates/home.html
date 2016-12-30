@@ -31,12 +31,12 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <div class="pull-left"><img src="/logo_wc.png"/></div>
+        <div class="pull-left"><img src="/logo_wc.png" /></div>
         <div class="very-big-font">&nbsp;Monitor</div>
     </div>
 
     <div>
-        <img src="/home_page_img.jpg" class="center-horizontally img-responsive"/>
+        <img src="/home_page_img.jpg" class="center-horizontally img-responsive" />
     </div>
 
     <div class="row">
@@ -44,15 +44,17 @@
             <div class="well">
                 <div class="media" th:id="${room.id}">
                     <div class="media-left">
-                        <img src=""/>
+                        <img src="" />
                     </div>
                     <div class="media-body">
-                        <p class="big-font" th:text="${room.name}"/>
-                        <p class="status"/>
+                        <p class="big-font" th:text="${room.name}" />
+                        <p class="status" />
+                        <p th:id="'lastUpdateDate'+${room.id}"></p>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
