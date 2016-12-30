@@ -2,13 +2,14 @@ package com.github.britter.springbootherokudemo.endpoint;
 
 import com.github.britter.springbootherokudemo.entity.*;
 import com.github.britter.springbootherokudemo.repository.*;
-import com.github.britter.springbootherokudemo.util.DateTimeoutChecker;
+import com.github.britter.springbootherokudemo.util.*;
+import com.github.britter.springbootherokudemo.websocket.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 @RestController
 @RequestMapping("/occupied")
@@ -16,6 +17,9 @@ public class RoomRestController {
 
     private final RoomRepository roomRepository;
     private final RoomToRoomDTOMapper mapper;
+
+    @Autowired
+    private WebSocketService webSocketService;
 
     @Autowired
     public RoomRestController(RoomRepository roomRepository, RoomToRoomDTOMapper mapper) {
@@ -63,6 +67,8 @@ public class RoomRestController {
         room.setLastUpdateDate(new Date());
 
         roomRepository.save(room);
+
+        webSocketService.sendWebsocketNotificationToAllRegisteredClients();
 
         return ResponseEntity.ok(null);
     }
