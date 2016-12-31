@@ -17,26 +17,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Monitor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
 
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/style.css"/>
 
 </head>
 <body>
 <div class="container">
     <div class="page-header">
-        <div class="pull-left"><img src="/logo_wc.png" /></div>
+        <div class="pull-left"><img src="/logo_wc.png"/></div>
         <div class="very-big-font">&nbsp;Monitor</div>
     </div>
 
     <div>
-        <img src="/home_page_img.jpg" class="center-horizontally img-responsive" />
+        <img src="/home_page_img.jpg" class="center-horizontally img-responsive"/>
     </div>
 
     <div class="row">
@@ -44,11 +44,11 @@
             <div class="well">
                 <div class="media" th:id="${room.id}">
                     <div class="media-left">
-                        <img src="" />
+                        <img src=""/>
                     </div>
                     <div class="media-body">
-                        <p class="big-font" th:text="${room.name}" />
-                        <p class="status" />
+                        <p class="big-font" th:text="${room.name}"/>
+                        <p class="status"></p>
                         <p th:id="'lastUpdateDate'+${room.id}"></p>
                     </div>
                 </div>

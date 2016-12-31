@@ -30,6 +30,9 @@ public class ApplicationInitializer implements ApplicationRunner {
         ObjectMapper mapper = new ObjectMapper();
         List<Room> rooms = mapper.readValue(inputStream, new TypeReference<List<Room>>(){});
         for (Room room : rooms) {
+            if (room.getLastUpdateDate() == null) {
+                room.setLastUpdateDate(new Date());
+            }
             roomRepository.save(room);
         }
     }
