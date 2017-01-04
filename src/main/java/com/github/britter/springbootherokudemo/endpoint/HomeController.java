@@ -17,7 +17,7 @@ package com.github.britter.springbootherokudemo.endpoint;
 
 import java.util.List;
 
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.entity.db.*;
 import com.github.britter.springbootherokudemo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

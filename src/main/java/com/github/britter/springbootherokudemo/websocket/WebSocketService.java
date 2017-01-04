@@ -1,6 +1,7 @@
 package com.github.britter.springbootherokudemo.websocket;
 
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.entity.dto.*;
+import com.github.britter.springbootherokudemo.mapper.*;
 import com.github.britter.springbootherokudemo.repository.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.messaging.simp.*;
@@ -15,12 +16,12 @@ public class WebSocketService {
     private RoomRepository roomRepository;
 
     @Autowired
-    private RoomToRoomDTOMapper mapper;
+    private RoomToRoomDTOWebsocketMapper mapper;
 
     @Autowired
     private SimpMessagingTemplate webSocket;
 
-    public void sendWebsocketNotificationToAllRegisteredClients() {
+    public void sendStatusUpdateNotificationToAllRegisteredClients() {
         List<RoomDTO> allRooms = roomRepository.findAll()
                 .stream().map(mapper::map)
                 .collect(Collectors.toList());

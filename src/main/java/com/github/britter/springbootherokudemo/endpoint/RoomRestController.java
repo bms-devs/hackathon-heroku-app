@@ -1,6 +1,8 @@
 package com.github.britter.springbootherokudemo.endpoint;
 
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.entity.db.*;
+import com.github.britter.springbootherokudemo.entity.dto.*;
+import com.github.britter.springbootherokudemo.mapper.*;
 import com.github.britter.springbootherokudemo.repository.*;
 import com.github.britter.springbootherokudemo.util.*;
 import com.github.britter.springbootherokudemo.websocket.*;
@@ -16,13 +18,13 @@ import java.util.stream.*;
 public class RoomRestController {
 
     private final RoomRepository roomRepository;
-    private final RoomToRoomDTOMapper mapper;
+    private final RoomToRoomDTORestMapper mapper;
 
     @Autowired
     private WebSocketService webSocketService;
 
     @Autowired
-    public RoomRestController(RoomRepository roomRepository, RoomToRoomDTOMapper mapper) {
+    public RoomRestController(RoomRepository roomRepository, RoomToRoomDTORestMapper mapper) {
         this.roomRepository = roomRepository;
         this.mapper = mapper;
     }
@@ -49,27 +51,32 @@ public class RoomRestController {
     @RequestMapping(value = "/{roomId}", method = { RequestMethod.POST, RequestMethod.PUT }, consumes = {"text/plain"})
     ResponseEntity<?> updateRoomAvailability(@PathVariable Long roomId, @RequestBody String occupied) {
         Room room = roomRepository.getOne(roomId);
+
         if (room == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
         if (!occupied.equals("true") && !occupied.equals("false")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
+        updateRoom(room, occupied);
+        webSocketService.sendStatusUpdateNotificationToAllRegisteredClients();
+
+        return ResponseEntity.ok(null);
+    }
+
+    private void updateRoom(Room room, String occupied){
         final Boolean currentOccupied = Boolean.valueOf(occupied);
         final Boolean lastOccupied = room.getOccupied();
         final Date lastUpdateDate = room.getLastUpdateDate();
 
-        if (!currentOccupied.equals(lastOccupied) || DateTimeoutChecker.dateTimeout(lastUpdateDate)) {
+        if (!currentOccupied.equals(lastOccupied) || DateTimeoutChecker.dateRestTimeout(lastUpdateDate)) {
             room.setLastOccupiedUpdateDate(new Date());
         }
         room.setOccupied(currentOccupied);
         room.setLastUpdateDate(new Date());
 
         roomRepository.save(room);
-
-        webSocketService.sendWebsocketNotificationToAllRegisteredClients();
-
-        return ResponseEntity.ok(null);
     }
 }

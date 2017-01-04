@@ -13,6 +13,6 @@ public class WebsocketSubscribeEventListener implements ApplicationListener<Sess
 
     @Override
     public void onApplicationEvent(SessionSubscribeEvent sessionSubscribeEvent) {
-        webSocketService.sendWebsocketNotificationToAllRegisteredClients();
+        webSocketService.sendStatusUpdateNotificationToAllRegisteredClients();
     }
 }

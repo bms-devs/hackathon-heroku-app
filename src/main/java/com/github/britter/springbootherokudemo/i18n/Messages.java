@@ -24,4 +24,8 @@ public class Messages {
         return accessor.getMessage(code);
     }
 
+    public String get(String code, Object[] args){
+        return accessor.getMessage(code, args);
+    }
+
 }
