@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo.entity;
+package com.github.britter.springbootherokudemo.entity.db;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

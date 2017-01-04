@@ -2,7 +2,7 @@ package com.github.britter.springbootherokudemo;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.britter.springbootherokudemo.entity.*;
+import com.github.britter.springbootherokudemo.entity.db.*;
 import com.github.britter.springbootherokudemo.repository.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.*;
@@ -30,6 +30,9 @@ public class ApplicationInitializer implements ApplicationRunner {
         ObjectMapper mapper = new ObjectMapper();
         List<Room> rooms = mapper.readValue(inputStream, new TypeReference<List<Room>>(){});
         for (Room room : rooms) {
+            if (room.getLastUpdateDate() == null) {
+                room.setLastUpdateDate(new Date());
+            }
             roomRepository.save(room);
         }
     }
