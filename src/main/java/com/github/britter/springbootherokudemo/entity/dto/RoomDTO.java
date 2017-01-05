@@ -1,9 +1,6 @@
-package com.github.britter.springbootherokudemo.entity;
+package com.github.britter.springbootherokudemo.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-
-import java.util.*;
 
 @Getter
 @Setter

@@ -1,10 +1,8 @@
-package com.github.britter.springbootherokudemo.entity;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+package com.github.britter.springbootherokudemo.entity.db;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
