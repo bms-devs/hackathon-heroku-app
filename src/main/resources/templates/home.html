@@ -17,15 +17,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Monitor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
 
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/style.css"/>
 
 </head>
 <body>
@@ -48,11 +48,13 @@
                     </div>
                     <div class="media-body">
                         <p class="big-font" th:text="${room.name}"/>
-                        <p class="status"/>
+                        <p class="status"></p>
+                        <p th:id="'lastUpdateDate'+${room.id}"></p>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
