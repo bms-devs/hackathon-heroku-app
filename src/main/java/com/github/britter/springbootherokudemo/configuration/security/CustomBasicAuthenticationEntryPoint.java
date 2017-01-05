@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo.security;
+package com.github.britter.springbootherokudemo.configuration.security;
 
 import org.springframework.security.core.*;
 import org.springframework.security.web.authentication.www.*;

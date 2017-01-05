@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo;
+package com.github.britter.springbootherokudemo.configuration;
 
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.*;

@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo.websocket;
+package com.github.britter.springbootherokudemo.configuration.websocket;
 
 import org.springframework.context.annotation.*;
 import org.springframework.web.socket.config.annotation.*;
