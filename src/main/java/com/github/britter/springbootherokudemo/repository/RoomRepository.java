@@ -1,8 +1,8 @@
 package com.github.britter.springbootherokudemo.repository;
 
-import com.github.britter.springbootherokudemo.entity.*;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.github.britter.springbootherokudemo.entity.db.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.stereotype.*;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {

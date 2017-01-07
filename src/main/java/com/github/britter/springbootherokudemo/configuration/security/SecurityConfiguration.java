@@ -1,4 +1,4 @@
-package com.github.britter.springbootherokudemo.security;
+package com.github.britter.springbootherokudemo.configuration.security;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
