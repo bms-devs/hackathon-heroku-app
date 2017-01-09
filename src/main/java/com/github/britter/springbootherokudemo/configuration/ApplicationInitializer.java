@@ -33,6 +33,9 @@ public class ApplicationInitializer implements ApplicationRunner {
             if (room.getLastUpdateDate() == null) {
                 room.setLastUpdateDate(new Date());
             }
+            if (room.getLastOccupiedStatusChangeDate() == null) {
+                room.setLastOccupiedStatusChangeDate(new Date());
+            }
             roomRepository.save(room);
         }
     }

@@ -18,9 +18,9 @@ public class RoomToRoomDTORestMapper extends RoomToRoomDTOMapper {
     private MessageService massages;
 
     @Override
-    protected void mapStatus(Room room, RoomDTO dto, Date lastUpdateDate) {
+    protected void mapStatus(Room room, RoomDTO dto) {
         // change status to unknown on timeout
-        if (DateTimeoutChecker.dateTimeout(lastUpdateDate)) {
+        if (DateTimeoutChecker.dateTimeout(room.getLastUpdateDate())) {
             dto.setOccupied(null);
         }
 
