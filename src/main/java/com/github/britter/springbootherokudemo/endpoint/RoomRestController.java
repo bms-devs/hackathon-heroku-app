@@ -29,7 +29,6 @@ public class RoomRestController {
     @Autowired
     private RoomService roomService;
 
-
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {"application/json"})
     ResponseEntity<List<RoomDTO>> getAllRoomsAvailibility() {
         List<RoomDTO> allRooms = roomRepository.findAll()
@@ -49,7 +48,7 @@ public class RoomRestController {
         return ResponseEntity.ok(mapper.map(room));
     }
 
-    @RequestMapping(value = "/{roomId}", method = { RequestMethod.POST, RequestMethod.PUT }, consumes = {"text/plain"})
+    @RequestMapping(value = "/{roomId}", method = {RequestMethod.POST, RequestMethod.PUT}, consumes = {"text/plain"})
     ResponseEntity<?> updateRoomAvailability(@PathVariable Long roomId, @RequestBody String occupied) {
         Room room = roomRepository.getOne(roomId);
 
@@ -61,11 +60,16 @@ public class RoomRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        roomService.updateRoomOccupied(room, occupied);
-        webSocketService.sendStatusUpdateNotificationToAllRegisteredClients();
+        final Boolean newOccupiedStatus = Boolean.valueOf(occupied);
+
+        if (roomService.hasRoomOccupiedStatusChanged(room, newOccupiedStatus)) {
+            roomService.updateRoomOccupied(room, newOccupiedStatus);
+            webSocketService.sendStatusUpdateNotificationToAllRegisteredClients();
+        } else {
+            roomService.updateOnlyLastUpdateDate(room);
+        }
 
         return ResponseEntity.ok(null);
     }
-
 
 }

@@ -21,7 +21,7 @@ public class Room {
 
     private Date lastUpdateDate;
 
-    private Date lastOccupiedUpdateDate;
+    private Date lastOccupiedStatusChangeDate;
 
     public Room() {
     }

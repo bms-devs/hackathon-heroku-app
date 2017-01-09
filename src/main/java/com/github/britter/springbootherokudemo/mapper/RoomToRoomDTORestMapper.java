@@ -24,13 +24,13 @@ public class RoomToRoomDTORestMapper extends RoomToRoomDTOMapper {
             dto.setOccupied(null);
         }
 
-        Duration duration = calculateLastOccupiedUpdateDuration(room.getLastOccupiedUpdateDate());
+        Duration duration = calculateDurationSinceLastOccupiedStatusChange(room.getLastOccupiedStatusChangeDate());
         dto.setStatus(massages.get("status.occupation.withTime." + String.valueOf(dto.getOccupied()),
                 new Object[]{duration.getHours(), duration.getMinutes(), duration.getSeconds()}));
     }
 
-    private Duration calculateLastOccupiedUpdateDuration(Date lastOccupiedUpdateDate) {
-        long diff = new Date().getTime() - Optional.ofNullable(lastOccupiedUpdateDate).orElse(new Date()).getTime();
+    private Duration calculateDurationSinceLastOccupiedStatusChange(Date lastOccupiedStatusChangeDate) {
+        long diff = new Date().getTime() - Optional.ofNullable(lastOccupiedStatusChangeDate).orElse(new Date()).getTime();
         long hours = TimeUnit.MILLISECONDS.toHours(diff);
         long minutes = TimeUnit.MILLISECONDS.toMinutes(diff) - (TimeUnit.MILLISECONDS.toHours(diff) * 60);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(diff) - (TimeUnit.MILLISECONDS.toMinutes(diff) * 60);
