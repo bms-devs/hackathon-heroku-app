@@ -14,5 +14,7 @@ public class RoomDTO {
 
     private Long lastUpdateDate;
 
+    private Long lastOccupiedStatusChangeDate;
+
     private String status;
 }

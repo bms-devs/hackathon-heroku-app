@@ -12,13 +12,14 @@ public abstract class RoomToRoomDTOMapper {
         dto.setId(room.getId());
         dto.setName(room.getName());
         dto.setOccupied(room.getOccupied());
-        final Date lastUpdateDate = room.getLastUpdateDate();
-        dto.setLastUpdateDate(lastUpdateDate == null ? null : lastUpdateDate.getTime());
+        dto.setLastUpdateDate(room.getLastUpdateDate() == null ? null : room.getLastUpdateDate().getTime());
+        final Date lastOccupiedStatusChangeDate = room.getLastOccupiedStatusChangeDate();
+        dto.setLastOccupiedStatusChangeDate(lastOccupiedStatusChangeDate == null ? null : lastOccupiedStatusChangeDate.getTime());
 
-        mapStatus(room, dto, lastUpdateDate);
+        mapStatus(room, dto);
 
         return dto;
     }
 
-    protected abstract void mapStatus(Room room, RoomDTO dto, Date lastUpdateDate);
+    protected abstract void mapStatus(Room room, RoomDTO dto);
 }

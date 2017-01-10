@@ -38,7 +38,7 @@ function updateClocks() {
     for (var i = 0; i < window.myScope.rooms.length; i++) {
         var singleRoom = window.myScope.rooms[i];
 
-        var diff = Math.round((new Date().getTime() - singleRoom.lastUpdateDate) / 1000);
+        var diff = Math.round((new Date().getTime() - singleRoom.lastOccupiedStatusChangeDate) / 1000);
 
         var d = Math.floor(diff / (24 * 60 * 60));
         diff = diff - (d * 24 * 60 * 60);
@@ -48,7 +48,7 @@ function updateClocks() {
         diff = diff - (m * 60);
         var s = diff;
 
-        document.getElementById("lastUpdateDate" + singleRoom.id).innerHTML = "od " + h + " h " + m + " m, " + s + " s";
+        document.getElementById("timeSinceLastStatusChange" + singleRoom.id).innerHTML = "od " + h + " h " + m + " m, " + s + " s";
     }
 }
 
