@@ -108,15 +108,15 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <git.commit.link>${project.scm.url}/commit/${buildNumber}</git.commit.link>
+        <!-- <git.commit.link>${project.scm.url}/commit/${buildNumber}</git.commit.link> -->
     </properties>
-
+<!-- 
     <scm>
         <url>https://github.com/britter/spring-boot-heroku-demo</url>
         <connection>scm:git:git://github.com/britter/spring-boot-heroku-demo.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/britter/spring-boot-heroku-demo.git</developerConnection>
         <tag>HEAD</tag>
-    </scm>
+    </scm> -->
 
     <build>
         <finalName>app</finalName>
@@ -152,7 +152,7 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
+                    <!-- <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>buildnumber-maven-plugin</artifactId>
                         <version>1.4</version>
@@ -164,7 +164,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin> -->
                 </plugins>
             </build>
         </profile>
