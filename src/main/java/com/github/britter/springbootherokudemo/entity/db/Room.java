@@ -15,8 +15,6 @@ public class Room {
 
     private String name;
 
-    private String token;
-
     private Boolean occupied;
 
     private Date lastUpdateDate;
